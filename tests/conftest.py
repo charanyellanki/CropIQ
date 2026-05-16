@@ -1,0 +1,11 @@
+"""Pytest fixtures shared across the test suite."""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+# Ensure `src` package is importable when running `pytest` from the repo root.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))

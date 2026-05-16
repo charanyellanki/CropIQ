@@ -1,0 +1,70 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Virtualenvs ---
+.env
+.venv
+env/
+venv/
+ENV/
+
+# --- IDEs / editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Claude Code harness ---
+.claude/
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+
+# --- Test / coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- MLflow ---
+mlruns/
+mlartifacts/
+
+# --- Data — raw and interim are gitignored ---
+data/raw/
+data/interim/
+
+# --- Data processed — gitignore by default, but commit the features parquet ---
+# (see CLAUDE.md §14 row 31)
+data/processed/*
+!data/processed/features.parquet
+!data/processed/counties_geo.json
+!data/processed/.gitkeep
+
+# --- Models — gitignore by default, but commit the deployed model ---
+models/*
+!models/best_model.pkl
+!models/.gitkeep

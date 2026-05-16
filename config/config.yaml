@@ -1,0 +1,79 @@
+# CropIQ — runtime configuration
+# Loaded by src/config.py via pydantic-settings. Override via env vars or .env.
+
+project:
+  name: CropIQ
+  description: County-level corn yield forecasting for IA/IL/NE.
+  random_seed: 42
+
+geography:
+  states: ["IA", "IL", "NE"]
+  state_fips:
+    IA: "19"
+    IL: "17"
+    NE: "31"
+
+time:
+  year_min: 2010
+  year_max: 2024
+  train_year_max: 2020
+  val_years: [2021, 2022]
+  test_years: [2023, 2024]
+
+target:
+  commodity: CORN
+  unit: BU / ACRE
+
+paths:
+  data_raw: data/raw
+  data_interim: data/interim
+  data_processed: data/processed
+  features_parquet: data/processed/features.parquet
+  counties_geojson: data/processed/counties_geo.json
+  models: models
+  best_model: models/best_model.pkl
+  mlruns: mlruns
+  reports: reports
+  figures: reports/figures
+
+apis:
+  nass:
+    base_url: https://quickstats.nass.usda.gov/api/api_GET/
+    rate_limit_cells: 50000
+  noaa_nclimgrid:
+    base_url: https://www.ncei.noaa.gov/access/monitoring/nclimgrid-monthly/
+  noaa_cdo:
+    base_url: https://www.ncdc.noaa.gov/cdo-web/api/v2/
+  ssurgo:
+    base_url: https://sdmdataaccess.nrcs.usda.gov/Tabular/SDMTabularService/post.rest
+
+model:
+  baseline:
+    rolling_window_years: 3
+  xgboost:
+    objective: reg:squarederror
+    n_estimators: 1000
+    learning_rate: 0.05
+    max_depth: 6
+    min_child_weight: 5
+    subsample: 0.8
+    colsample_bytree: 0.8
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    early_stopping_rounds: 50
+    random_state: 42
+  lightgbm:
+    objective: regression
+    n_estimators: 1000
+    learning_rate: 0.05
+    num_leaves: 31
+    min_child_samples: 20
+    subsample: 0.8
+    colsample_bytree: 0.8
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    early_stopping_rounds: 50
+    random_state: 42
+
+logging:
+  level: INFO
